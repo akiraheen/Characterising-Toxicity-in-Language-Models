@@ -1,6 +1,7 @@
 import json
 import ollama
 import time
+import random
 
 prompts = []
 
@@ -18,10 +19,12 @@ with open("data/nontoxic.jsonl", "r", encoding="utf-8") as file:
 
 models = ["mistral:7b", "llama3:8b", "gemma:7b"]
 
-number_of_prompts = 3
+random.shuffle(prompts)
+
+number_of_prompts = 200
 selected_prompts = prompts[:number_of_prompts]
 
-def generate_with(model_name, prompt_text):
+def run_model(model_name, prompt_text):
     response = ollama.generate(
         model=model_name,
         prompt=prompt_text,
@@ -43,7 +46,7 @@ for model in models:
     for prompt in selected_prompts:
 
         prompt_text = prompt["prompt"]
-        response = generate_with(model, prompt_text)
+        response = run_model(model, prompt_text)
 
         model_results.append({
             "prompt": prompt_text,
