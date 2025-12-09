@@ -42,11 +42,11 @@ for model_tag in models:
     for idx, item in enumerate(selected_prompts):
         prompt_text = item["prompt"]
 
-        completion = generate_with(model_tag, prompt_text)
+        response = generate_with(model_tag, prompt_text)
 
         model_results.append({
             "prompt": prompt_text,
-            "completion": completion
+            "response": response
         })
 
         # tiny delay so we don't hammer your machine
